@@ -1,5 +1,5 @@
 //   _____ _        _     _
-//  / ____| |      (_)   | | 
+//  / ____| |      (_)   | |
 // | (___ | |_ _ __ _  __| | ___
 //  \___ \| __| '__| |/ _` |/ _ \
 //  ____) | |_| |  | | (_| |  __/
@@ -7,17 +7,8 @@
 //
 //
 // Author: Zapk
-// Version: 1.0.0 (September 2015)
-
-// An improved version of Port's old footstep script.
-// -  Customizable per paint color, with optional footprints.
-
-// Events:
-// - setMaterial [material] [hasFootprints]
-
-// Commands:
-// - /clearfootprints - clears all Stride material settings (Admin)
-// - /setfootstep [material] [hasFootprints] - changes the material setting of your current paint colour (Admin)
+// Version: 1.1.0 (November 2017)
+// URL: https://github.com/zapk/Server_Stride
 
 exec("./lib/color.cs"); // RGB -> HEX conversion methods.
 exec("./lib/decals.cs"); // Port's decal system. Used for footprints.
@@ -247,13 +238,13 @@ function Player::fs_playTick( %this )
 		%cR = mClampF(getWord(%color, 0) - 0.075, 0, 1);
 		%cG = mClampF(getWord(%color, 1) - 0.075, 0, 1);
 		%cB = mClampF(getWord(%color, 2) - 0.075, 0, 1);
-	
+
 		%color = %cR SPC %cG SPC %cB SPC 1;
-	
+
 		%pos = vectorAdd( %this.getPosition(), "0 0 0.01" );
-	
+
 		%foot = !!%this.fs_currentFoot;
-	
+
 		if(%foot) // left foot
 		{
 			%pos = VectorAdd(%pos, VectorScale( %this.getLeftVector(), 0.25 ));
@@ -262,14 +253,14 @@ function Player::fs_playTick( %this )
 		{
 			%pos = VectorAdd(%pos, VectorScale( %this.getRightVector(), 0.25 ));
 		}
-	
+
 		%obj = spawnDecal("FootprintDecal", %pos, %this.getForwardVector());
-	
+
 		if(isObject(%obj))
 		{
 			%obj.setNodeColor("ALL", %color);
 		}
-	
+
 		%this.fs_currentFoot = !%foot;
 	}
 
