@@ -1,0 +1,3 @@
+Title: Stride
+Author: Zapk
+An in-depth footstep/footprint mod for added realism.
